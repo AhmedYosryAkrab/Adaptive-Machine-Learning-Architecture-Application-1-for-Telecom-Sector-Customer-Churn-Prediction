@@ -134,6 +134,17 @@ print("Recall:", recall_score(y_test, y_pred))
 print("Accuracy:", accuracy_score(y_test, y_pred))
 print("F1 Score:", f1_score(y_test, y_pred))
 
+#Cross validation applied
+train_sizes, train_scores, test_scores = learning_curve(
+    rf_classifier, X_train_selected, y_train, cv=5, scoring='accuracy', n_jobs=-1,
+    train_sizes=np.linspace(0.1, 1.0, 10)
+)
+
+train_mean = np.mean(train_scores, axis=1)
+test_mean = np.mean(test_scores, axis=1)
+train_std = np.std(train_scores, axis=1)
+test_std = np.std(test_scores, axis=1)
+
 
 # ROC Curve
 fpr, tpr, thresholds = roc_curve(y_test, y_proba)
